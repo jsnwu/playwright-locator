@@ -22,9 +22,9 @@ It follows the official locator priority, ensuring you always get the most resil
 
 *   **🔗 Smart Locator Chaining:** For elements that aren't unique on their own, the extension finds a stable parent and creates a readable and robust chained locator (e.g., `page.getByRole('list').getByRole('listitem', { name: 'User 1' })`).
 
-*   **✅ Instant Locator Verifier:** Manually write and test a locator directly in the popup. The verifier understands **both CSS and Playwright syntax** (`getByRole`, `getByText`, etc.) and instantly highlights all matching elements on the page, showing you a live count.
+*   **✅ Multiple strategies per pick:** After you pick an element, the popup lists **up to five** different locators when available (e.g. test id, role + name, label, placeholder, text, title, unique role, CSS). Each row has **Verify** and **Copy**.
 
-*   **🐍 Pytest & JS Support:** Toggle between Python (`pytest`) and JavaScript (`playwright-test`) syntax for the generated locators.
+*   **📦 JavaScript output:** Generated locators use Playwright’s JavaScript / `playwright-test` style (`page.getByRole(...)`, etc.).
 
 *   **💡 Lightweight & Fast:** Built with performance in mind to not slow down your browsing or debugging sessions.
 
@@ -36,16 +36,13 @@ It follows the official locator priority, ensuring you always get the most resil
 
 2.  **To Generate a Locator:**
     *   Click the extension icon in your browser toolbar.
-    *   Select your desired framework (Pytest or JS).
     *   Click the "Pick Element" button.
     *   The popup will close. Click on any element on the web page.
-    *   A notification will appear with the best locator, which is also copied to your popup.
+    *   The extension **popup opens again** (or a small popup window) with **locator options** for that element. If picking fails, an error shows at the top of the popup.
 
 3.  **To Verify a Locator:**
-    *   Click the extension icon.
-    *   In the "Verify Selector" section, type any CSS selector or Playwright locator (e.g., `getByRole('button')`).
-    *   Click the "Check Selector" button.
-    *   The matching elements will be highlighted on the page, and the count will be displayed in the popup.
+    *   Open the popup and choose a row under the strategy label you care about.
+    *   Click **Verify** next to that row. Matching elements are highlighted on the page and a short status (match count or error) appears under the row.
 
 ## 🤝 Contributing
 

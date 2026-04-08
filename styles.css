@@ -1,3 +1,7 @@
+html {
+    background: #f4f7f9;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: #f4f7f9;
@@ -7,32 +11,53 @@ body {
     color: #333;
 }
 
+/* After Verify / Evaluate: see tab highlights through the popup */
+html.popup-highlight-peek {
+    background: transparent !important;
+}
+
+html.popup-highlight-peek body {
+    background: transparent !important;
+}
+
+html.popup-highlight-peek .container {
+    gap: 12px;
+}
+
+html.popup-highlight-peek .section {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+html.popup-highlight-peek .locator-list-item {
+    background: rgba(237, 242, 247, 0.82);
+    border-color: rgba(226, 232, 240, 0.9);
+}
+
+html.popup-highlight-peek .pick-feedback {
+    background: rgba(255, 245, 245, 0.88);
+}
+
+html.popup-highlight-peek .shortcut-kbd {
+    background: rgba(237, 242, 247, 0.88);
+}
+
+html.popup-highlight-peek .eval-locator-textbox {
+    background: rgba(255, 255, 255, 0.85);
+}
+
+html.popup-highlight-peek .eval-message {
+    background: rgba(247, 250, 252, 0.9);
+}
+
 .container {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
-
-.header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 10px;
-}
-
-.logo {
-    width: 32px;
-    height: 32px;
-}
-
-h1, h2 {
-    margin: 0;
-    color: #1a202c;
-}
-
-h1 { font-size: 1.2em; }
-h2 { font-size: 1.0em; color: #4a5568; margin-bottom: 10px; }
 
 .section {
     background-color: #ffffff;
@@ -41,28 +66,198 @@ h2 { font-size: 1.0em; color: #4a5568; margin-bottom: 10px; }
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-#locatorOutput {
-    background-color: #edf2f7;
-    padding: 10px;
-    border-radius: 6px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.85em;
-    word-wrap: break-word;
-    margin-bottom: 10px;
-    min-height: 20px;
-    color: #2d3748;
-}
-
-.framework-selector {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-    font-size: 0.9em;
-}
-
 .button-group {
     display: flex;
     gap: 10px;
+}
+
+.button-group--pick {
+    margin-bottom: 12px;
+}
+
+.button-group--pick .btn-primary {
+    flex-grow: 1;
+}
+
+.pick-feedback {
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    font-size: 0.8em;
+    line-height: 1.35;
+    color: #c53030;
+    background-color: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-radius: 6px;
+}
+
+.locator-list-empty {
+    margin: 0 0 8px;
+    font-size: 0.85em;
+    color: #718096;
+    line-height: 1.4;
+}
+
+.eval-hint {
+    margin: 0 0 10px;
+    font-size: 0.78em;
+    color: #718096;
+    line-height: 1.4;
+}
+
+.eval-hint code {
+    font-size: 0.95em;
+    background: #edf2f7;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+.eval-hint-kbd {
+    font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace;
+    font-size: 0.9em;
+    background: #edf2f7;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+.eval-locator-textbox {
+    display: block;
+    width: 100%;
+    min-height: 88px;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 0.78em;
+    line-height: 1.45;
+    font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace;
+    color: #2d3748;
+    resize: vertical;
+}
+
+.eval-locator-textbox:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 1px #4299e1;
+}
+
+.btn-eval {
+    width: 100%;
+    margin-bottom: 0;
+    flex-grow: 0;
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+
+.btn-eval:hover:not(:disabled) {
+    background-color: #cbd5e0;
+}
+
+.btn-eval:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.eval-message {
+    display: none;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    line-height: 1.35;
+    text-align: center;
+    background-color: #f7fafc;
+}
+
+.locator-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 260px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.locator-list-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: #edf2f7;
+    border-radius: 6px;
+    padding: 8px 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.locator-strategy-label {
+    font-size: 0.68em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #4a5568;
+    align-self: flex-start;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: #e2e8f0;
+}
+
+.locator-list-code {
+    width: 100%;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 0.72em;
+    line-height: 1.35;
+    word-break: break-all;
+    color: #2d3748;
+}
+
+.locator-list-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+.locator-list-status {
+    display: none;
+    font-size: 0.72em;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.btn-copy-locator,
+.btn-verify-locator {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    font-size: 0.75em;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-copy-locator {
+    background-color: #cbd5e0;
+    color: #2d3748;
+}
+
+.btn-copy-locator:hover {
+    background-color: #a0aec0;
+}
+
+.btn-verify-locator {
+    background-color: #bee3f8;
+    color: #2c5282;
+}
+
+.btn-verify-locator:hover:not(:disabled) {
+    background-color: #90cdf4;
+}
+
+.btn-verify-locator:disabled {
+    opacity: 0.65;
+    cursor: wait;
 }
 
 .btn {
@@ -84,33 +279,89 @@ h2 { font-size: 1.0em; color: #4a5568; margin-bottom: 10px; }
     background-color: #3182ce;
 }
 
-#copyLocatorButton, #checkButton {
+.section-title {
+    margin: 0 0 6px;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.shortcut-desc {
+    margin: 0 0 10px;
+    font-size: 0.8em;
+    color: #718096;
+    line-height: 1.35;
+}
+
+.shortcut-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.section-title--shortcut {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.shortcut-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.shortcut-kbd {
+    display: block;
+    padding: 8px 8px;
+    font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace;
+    font-size: 0.8em;
+    line-height: 1.3;
+    background-color: #edf2f7;
+    color: #2d3748;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    flex: 1 1 0;
+    min-width: 120px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Override .btn flex-grow so Edit stays label-sized, not stretched */
+.btn-edit-shortcut {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: max-content;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.72em;
+    font-weight: 600;
+    line-height: 1.3;
+    cursor: pointer;
     background-color: #e2e8f0;
     color: #2d3748;
+    transition: background-color 0.15s ease;
 }
-#copyLocatorButton:hover, #checkButton:hover {
+
+.btn-edit-shortcut:hover {
     background-color: #cbd5e0;
 }
 
-.divider {
-    height: 1px;
-    background-color: #e0e0e0;
-    margin: 5px 0;
+.section--shortcut .shortcut-desc {
+    margin: 0 0 8px;
 }
 
-#locatorInput {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #cbd5e0;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    font-size: 0.85em;
-}
-
-#message {
-    margin-top: 10px;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 0.8em;
-    text-align: center;
+.shortcut-hint {
+    margin: 6px 0 0;
+    font-size: 0.72em;
+    color: #a0aec0;
+    line-height: 1.35;
 }
