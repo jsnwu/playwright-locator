@@ -1,53 +1,65 @@
 # Playwright Locator Assistant
 
+This project is a fork of [**tickytec/Playwright-Locator-Assistant**](https://github.com/tickytec/Playwright-Locator-Assistant), a solid Playwright locator helper. This fork adds changes tailored to my own workflow.
 
-The ultimate browser extension for generating and verifying stable Playwright locators on the fly. This tool is designed for QA engineers and developers who want to write more resilient and readable tests, faster.
+A Chrome extension that generates and verifies Playwright-style locators from the page you are on. It is aimed at QA engineers and developers who want quicker, more readable, and more stable selectors.
+
+**Further reading:** [Playwright locators guide — getByRole, getByText, getByLabel, CSS, XPath](https://dev.to/keepcodn/playwright-locators-guide-getbyrole-getbytext-getbylabel-css-xpath-24n0) (dev.to).
 
 ---
 
 ## Why This Extension?
 
-In modern web development, writing stable end-to-end tests is a challenge. CSS selectors are brittle, and manually crafting the perfect Playwright locator can be time-consuming. This extension solves that problem by embedding Playwright's best practices directly into your browser.
+End-to-end tests break when selectors are brittle. Playwright recommends user-facing locators (`getByRole`, labels, test ids) over raw CSS. This extension applies that priority on a real DOM: pick an element, compare several strategies, then copy or verify the one you want.
 
-It follows the official locator priority, ensuring you always get the most resilient locator possible, preferring user-facing attributes over implementation details.
+## Features
 
-## ✨ Features
+*   **Locator generation:** Use **Pick Element**, then click a node on the page. The extension suggests a primary chained locator when needed and follows Playwright-style priorities (`data-testid`, role + name, label, placeholder, text, title, unique role, CSS fallback, etc.).
 
-*   **🚀 Intelligent Locator Generation:** Click on any element, and the extension automatically generates the best possible locator based on Playwright's recommended priority:
-    1.  `data-testid`
-    2.  `getByRole` (with accessible name)
-    3.  `getByText`, `getByLabel`, `getByPlaceholder`, etc.
-    4.  Smart `getByRole` (when unique without a name)
-    5.  `CSS` selector as a last resort (with a warning).
+*   **Up to five strategies per pick:** The popup lists labeled alternatives (not a long history of old picks). Each row includes **Verify** and **Copy**.
 
-*   **🔗 Smart Locator Chaining:** For elements that aren't unique on their own, the extension finds a stable parent and creates a readable and robust chained locator (e.g., `page.getByRole('list').getByRole('listitem', { name: 'User 1' })`).
+*   **Chaining:** When a target is not unique, the extension can walk up to a stable parent and build a chained locator (for example `page.getByRole('list').getByRole('listitem', { name: '…' })`).
 
-*   **✅ Multiple strategies per pick:** After you pick an element, the popup lists **up to five** different locators when available (e.g. test id, role + name, label, placeholder, text, title, unique role, CSS). Each row has **Verify** and **Copy**.
+*   **Evaluate:** The **Evaluate locator** box accepts a CSS selector or a `page.getBy…` / `page.locator('…')` style string. **Ctrl+Enter** (Windows/Linux) or **⌘+Enter** (macOS) runs it; behavior matches **Verify** on the active tab.
 
-*   **📦 JavaScript output:** Generated locators use Playwright’s JavaScript / `playwright-test` style (`page.getByRole(...)`, etc.).
+*   **Match highlighting:** Successful **Verify** and **Evaluate** runs draw a **green** outline and light fill on matched elements. Highlights are **cleared** when you **close the popup** or use **Pick Element** (entering or leaving pick mode), so the page does not keep stale overlays.
 
-*   **💡 Lightweight & Fast:** Built with performance in mind to not slow down your browsing or debugging sessions.
+*   **Keyboard shortcut:** Toggle pick mode with **Ctrl+Shift+F** or **⌘⇧F** (Chrome’s default for this extension). Use **Edit** in the popup to open [**Extension shortcuts**](chrome://extensions/shortcuts) and change it.
 
+*   **Peek-friendly popup:** After you verify or evaluate, the popup can appear more transparent so highlights on the page stay easy to see behind the UI.
 
-## 🛠️ How to Use
+*   **Output format:** Suggestions use Playwright’s JavaScript / `playwright-test` style (`page.getByRole(…)`, etc.).
 
-1.  **Install the Extension:**
-    *  
+*   **Picking mode:** Crosshair cursor, hover outline, and `composedPath()`-based targeting help with nested and shadow DOM content where possible.
 
-2.  **To Generate a Locator:**
-    *   Click the extension icon in your browser toolbar.
-    *   Click the "Pick Element" button.
-    *   The popup will close. Click on any element on the web page.
-    *   The extension **popup opens again** (or a small popup window) with **locator options** for that element. If picking fails, an error shows at the top of the popup.
+## How to Use
 
-3.  **To Verify a Locator:**
-    *   Open the popup and choose a row under the strategy label you care about.
-    *   Click **Verify** next to that row. Matching elements are highlighted on the page and a short status (match count or error) appears under the row.
+1.  **Install (Load unpacked)**
+    *   Open Chrome and go to the [**Extensions**](chrome://extensions) page.
+    *   Turn on **Developer mode**.
+    *   Click **Load unpacked** and choose this repository folder (the one that contains `manifest.json`).
 
-## 🤝 Contributing
+2.  **Generate locators**
+    *   Click the extension icon, then **Pick Element**. The popup closes; click the element you care about.
+    *   The popup opens again (or a small window, depending on Chrome) with up to five strategy rows for **that** pick. If something fails, an error can be shown when the popup reopens.
 
-Contributions are welcome! If you have ideas for new features, find a bug, or want to improve the code, feel free to open an issue or submit a pull request.
+3.  **Verify**
+    *   Click **Verify** on a strategy row. Matching nodes are highlighted in green; a short status appears under the row.
 
-## 📄 License
+4.  **Evaluate**
+    *   Paste or type a locator in **Evaluate locator** and click **Evaluate**, or use **Ctrl+Enter** / **⌘+Enter**.
 
-This project is licensed under the MIT License.
+5.  **Shortcut**
+    *   From a normal web tab, use the configured shortcut to start or stop pick mode without opening the popup first.
+
+## Development: launch Chrome with this extension
+
+For a separate profile and automatic load of this folder as an unpacked extension, you can use the helper script `chrome-with-extension.sh` from the repo root (see comments inside the script). Recent **Google Chrome stable** builds may ignore `--load-extension`; **Chrome for Testing** or **Chromium** is more reliable for that flag. You can always use **Load unpacked** on the [**Extensions**](chrome://extensions) page with your everyday profile instead.
+
+## Contributing
+
+Contributions are welcome through issues and pull requests.
+
+## License
+
+This project is licensed under the MIT License; see [`LICENSE`](LICENSE).
