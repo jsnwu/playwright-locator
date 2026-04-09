@@ -49,7 +49,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     chrome.storage.local.set(
         {
-            locatorSuggestions: alternatives.slice(0, 5),
+            // Cap must match MAX_LOCATOR_SUGGESTIONS in content.js
+            locatorSuggestions: alternatives.slice(0, 10),
             lastGeneratedLocator: primaryLocator || alternatives[0].locator,
             lastPickError: '',
         },

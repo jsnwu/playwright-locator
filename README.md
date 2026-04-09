@@ -1,8 +1,16 @@
-# Playwright Locator Assistant
+# Playwright Locator Helper
 
 This project is a fork of [**tickytec/Playwright-Locator-Assistant**](https://github.com/tickytec/Playwright-Locator-Assistant), a solid Playwright locator helper. This fork adds changes tailored to my own workflow.
 
+Ehancements:
+* Top locator suggestions by Role, Text, Placeholder / Alt / Title, Test-id or CSS
+* Add shortcut key for capturing locator, this is ensential for capturing dropdown items or mouseover/toggle elements
+* Add element highlights on capturing
+* Simplified UI flow
+* Add support for .nth() locator evaludation
+
 A Chrome extension that generates and verifies Playwright-style locators from the page you are on. It is aimed at QA engineers and developers who want quicker, more readable, and more stable selectors.
+
 
 **Further reading:** [Playwright locators guide — getByRole, getByText, getByLabel, CSS, XPath](https://dev.to/keepcodn/playwright-locators-guide-getbyrole-getbytext-getbylabel-css-xpath-24n0) (dev.to).
 
@@ -26,7 +34,7 @@ End-to-end tests break when selectors are brittle. Playwright recommends user-fa
 
 *   **Keyboard shortcut:** Toggle pick mode with **Ctrl+Shift+F** or **⌘⇧F** (Chrome’s default for this extension). Use **Edit** in the popup to open [**Extension shortcuts**](chrome://extensions/shortcuts) and change it.
 
-*   **Peek-friendly popup:** After you verify or evaluate, the popup can appear more transparent so highlights on the page stay easy to see behind the UI.
+*   **On-page status banner:** Chrome does not allow a semi-transparent extension popup, so after **Verify** or **Evaluate** finds matches, a short **frosted banner** is drawn on the **webpage** (bottom center) with the match count. It auto-dismisses or you can click **Dismiss**. It is removed when highlights are cleared.
 
 *   **Output format:** Suggestions use Playwright’s JavaScript / `playwright-test` style (`page.getByRole(…)`, etc.).
 
@@ -52,9 +60,14 @@ End-to-end tests break when selectors are brittle. Playwright recommends user-fa
 5.  **Shortcut**
     *   From a normal web tab, use the configured shortcut to start or stop pick mode without opening the popup first.
 
-## Development: launch Chrome with this extension
+## Debug mode (mock a picked element UI state)
 
-For a separate profile and automatic load of this folder as an unpacked extension, you can use the helper script `chrome-with-extension.sh` from the repo root (see comments inside the script). Recent **Google Chrome stable** builds may ignore `--load-extension`; **Chrome for Testing** or **Chromium** is more reliable for that flag. You can always use **Load unpacked** on the [**Extensions**](chrome://extensions) page with your everyday profile instead.
+You can open the popup directly in a “picked element” state without actually picking anything.
+
+1. **Find your extension id**
+   - Go to the [**Extensions**](chrome://extensions) page.
+   - Enable **Developer mode**.
+   - Copy the extension **ID** shown on the card.
 
 ## Contributing
 

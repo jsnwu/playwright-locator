@@ -12,15 +12,18 @@
             <div class="button-group button-group--pick">
                 <button id="pickElementButton" class="btn btn-primary">Pick Element</button>
             </div>
-            <p id="locatorListEmpty" class="locator-list-empty">Pick an element to see up to five locator options (role, label, test id, CSS, etc.).</p>
+            <p id="pickFeedback" class="pick-feedback" hidden></p>
+            <p id="locatorListEmpty" class="locator-list-empty">Pick an element to see locator strategies (scroll the list for more).</p>
             <ul id="locatorList" class="locator-list" aria-label="Locator strategies for the last picked element"></ul>
         </div>
 
         <div class="section section--eval">
             <h2 class="section-title">Evaluate locator</h2>
             <textarea id="evalLocatorInput" class="eval-locator-textbox" rows="5" placeholder="css selector or page.locator('#id')" spellcheck="false" aria-label="Locator to evaluate"></textarea>
-            <button type="button" id="evalLocatorButton" class="btn btn-eval">Evaluate</button>
-            <div id="evalLocatorMessage" class="eval-message" role="status" aria-live="polite"></div>
+            <div class="eval-footer">
+                <div id="evalLocatorMessage" class="eval-message" role="status" aria-live="polite"></div>
+                <button type="button" id="evalLocatorButton" class="btn btn-eval">Evaluate</button>
+            </div>
         </div>
 
         <div class="section section--shortcut">

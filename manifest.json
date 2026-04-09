@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Playwright Locator Assistant",
+  "name": "Playwright Locator Helper",
   "version": "1.0.0",
-  "description": "Instantly generate and verify the best Playwright locators for any element on the page.",
+  "description": "Generate and verify Playwright locators for any element on the page.",
   "permissions": [
     "storage",
     "activeTab",

@@ -7,61 +7,19 @@ body {
     background-color: #f4f7f9;
     width: 350px;
     margin: 0;
-    padding: 15px;
+    padding: 12px;
     color: #333;
-}
-
-/* After Verify / Evaluate: see tab highlights through the popup */
-html.popup-highlight-peek {
-    background: transparent !important;
-}
-
-html.popup-highlight-peek body {
-    background: transparent !important;
-}
-
-html.popup-highlight-peek .container {
-    gap: 12px;
-}
-
-html.popup-highlight-peek .section {
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-html.popup-highlight-peek .locator-list-item {
-    background: rgba(237, 242, 247, 0.82);
-    border-color: rgba(226, 232, 240, 0.9);
-}
-
-html.popup-highlight-peek .pick-feedback {
-    background: rgba(255, 245, 245, 0.88);
-}
-
-html.popup-highlight-peek .shortcut-kbd {
-    background: rgba(237, 242, 247, 0.88);
-}
-
-html.popup-highlight-peek .eval-locator-textbox {
-    background: rgba(255, 255, 255, 0.85);
-}
-
-html.popup-highlight-peek .eval-message {
-    background: rgba(247, 250, 252, 0.9);
 }
 
 .container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .section {
     background-color: #ffffff;
-    padding: 15px;
+    padding: 12px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
@@ -141,10 +99,22 @@ html.popup-highlight-peek .eval-message {
     box-shadow: 0 0 0 1px #4299e1;
 }
 
+.eval-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
 .btn-eval {
-    width: 100%;
+    width: 135px;
+    flex-shrink: 0;
     margin-bottom: 0;
+    margin-left: auto;
     flex-grow: 0;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
     background-color: #e2e8f0;
     color: #2d3748;
 }
@@ -158,71 +128,142 @@ html.popup-highlight-peek .eval-message {
     cursor: wait;
 }
 
+/* Match page verify highlight green when evaluation succeeds */
+.btn.btn-eval.btn-eval--success {
+    background-color: #bbf7d0;
+    color: #14532d;
+    border-color: #22c55e;
+}
+
+.btn.btn-eval.btn-eval--success:hover:not(:disabled) {
+    background-color: #86efac;
+}
+
+.btn.btn-eval.btn-eval--warn {
+    background-color: #ffedd5;
+    color: #9a3412;
+    border-color: #fb923c;
+}
+
+.btn.btn-eval.btn-eval--warn:hover:not(:disabled) {
+    background-color: #fed7aa;
+}
+
+.btn.btn-eval.btn-eval--error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-color: #f87171;
+}
+
+.btn.btn-eval.btn-eval--error:hover:not(:disabled) {
+    background-color: #fecaca;
+}
+
 .eval-message {
     display: none;
-    margin-top: 10px;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 0.78em;
-    line-height: 1.35;
-    text-align: center;
-    background-color: #f7fafc;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.72em;
+    line-height: 1.3;
+    text-align: left;
+    background: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .locator-list {
+    --locator-list-gap: 8px;
     list-style: none;
     margin: 0;
     padding: 0;
-    max-height: 260px;
+    /* Short viewport (~3 rows); additional strategies scroll inside the list */
+    max-height: min(252px, 38vh);
     overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--locator-list-gap);
 }
 
 .locator-list-item {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "strategy actions"
+        "code actions";
+    column-gap: 10px;
+    row-gap: 4px;
+    align-items: start;
     background-color: #edf2f7;
     border-radius: 6px;
     padding: 8px 10px;
     border: 1px solid #e2e8f0;
 }
 
+.locator-strategy-row {
+    grid-area: strategy;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 0;
+}
+
 .locator-strategy-label {
+    flex-shrink: 0;
     font-size: 0.68em;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #4a5568;
-    align-self: flex-start;
     padding: 2px 6px;
     border-radius: 4px;
     background-color: #e2e8f0;
 }
 
 .locator-list-code {
+    grid-area: code;
     width: 100%;
+    min-width: 0;
     font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
     font-size: 0.72em;
-    line-height: 1.35;
-    word-break: break-all;
+    line-height: 1.4;
+    word-break: break-word;
+    overflow-wrap: anywhere;
     color: #2d3748;
+    display: block;
+    white-space: pre-wrap;
 }
 
 .locator-list-actions {
+    grid-area: actions;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 6px;
-    align-items: center;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.locator-list-actions .btn-copy-locator,
+.locator-list-actions .btn-verify-locator {
+    text-align: center;
 }
 
 .locator-list-status {
     display: none;
-    font-size: 0.72em;
-    line-height: 1.3;
+    flex: 1;
+    min-width: 0;
     margin: 0;
+    font-size: 0.68em;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: right;
+    overflow-wrap: anywhere;
 }
 
 .btn-copy-locator,
@@ -237,13 +278,36 @@ html.popup-highlight-peek .eval-message {
     transition: background-color 0.15s ease, opacity 0.15s ease;
 }
 
+@keyframes btn-copy-locator-feedback {
+    0% {
+        background-color: #cbd5e0;
+        color: #2d3748;
+    }
+    10% {
+        background-color: #4ade80;
+        color: #14532d;
+    }
+    22% {
+        background-color: #4ade80;
+        color: #14532d;
+    }
+    100% {
+        background-color: #cbd5e0;
+        color: #2d3748;
+    }
+}
+
 .btn-copy-locator {
     background-color: #cbd5e0;
     color: #2d3748;
 }
 
-.btn-copy-locator:hover {
+.btn-copy-locator:hover:not(.btn-copy-locator--copied) {
     background-color: #a0aec0;
+}
+
+.btn-copy-locator--copied {
+    animation: btn-copy-locator-feedback 2.2s ease-in-out forwards;
 }
 
 .btn-verify-locator {
@@ -277,6 +341,12 @@ html.popup-highlight-peek .eval-message {
 }
 .btn-primary:hover {
     background-color: #3182ce;
+}
+
+/* .btn sets flex-grow: 1; keep Evaluate fixed width on the eval row */
+.btn.btn-eval {
+    flex-grow: 0;
+    width: 135px;
 }
 
 .section-title {
