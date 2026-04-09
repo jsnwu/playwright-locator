@@ -16,17 +16,13 @@ A Chrome extension that generates and verifies Playwright-style locators from th
 
 ---
 
-## Why This Extension?
-
-End-to-end tests break when selectors are brittle. Playwright recommends user-facing locators (`getByRole`, labels, test ids) over raw CSS. This extension applies that priority on a real DOM: pick an element, compare several strategies, then copy or verify the one you want.
-
 ## Features
 
 *   **Locator generation:** Use **Pick Element**, then click a node on the page. The extension suggests a primary chained locator when needed and follows Playwright-style priorities (`data-testid`, role + name, label, placeholder, text, title, unique role, CSS fallback, etc.).
 
 *   **Up to five strategies per pick:** The popup lists labeled alternatives (not a long history of old picks). Each row includes **Verify** and **Copy**.
 
-*   **Chaining:** When a target is not unique, the extension can walk up to a stable parent and build a chained locator (for example `page.getByRole('list').getByRole('listitem', { name: '…' })`).
+*   **Chaining enchancment:** When a target is not unique, the extension can walk up to a stable parent and build a chained locator (for example `page.locator('list').getByRole('listitem', { name: '…' })`).
 
 *   **Evaluate:** The **Evaluate locator** box accepts a CSS selector or a `page.getBy…` / `page.locator('…')` style string. **Ctrl+Enter** (Windows/Linux) or **⌘+Enter** (macOS) runs it; behavior matches **Verify** on the active tab.
 
@@ -59,15 +55,6 @@ End-to-end tests break when selectors are brittle. Playwright recommends user-fa
 
 5.  **Shortcut**
     *   From a normal web tab, use the configured shortcut to start or stop pick mode without opening the popup first.
-
-## Debug mode (mock a picked element UI state)
-
-You can open the popup directly in a “picked element” state without actually picking anything.
-
-1. **Find your extension id**
-   - Go to the [**Extensions**](chrome://extensions) page.
-   - Enable **Developer mode**.
-   - Copy the extension **ID** shown on the card.
 
 ## Contributing
 
