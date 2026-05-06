@@ -787,6 +787,15 @@ function buildCssAriaLabelSelector(element) {
     return `${tag}[aria-label="${escapeCssAttrValueDoubleQuoted(label)}"]`;
 }
 
+function buildCssNameAttributeSelector(element) {
+    const raw = element.getAttribute('name');
+    if (raw == null) return null;
+    const trimmed = raw.trim();
+    if (!trimmed) return null;
+    const tag = element.tagName.toLowerCase();
+    return `${tag}[name="${escapeCssAttrValueDoubleQuoted(trimmed)}"]`;
+}
+
 function buildStableClassCssSelector(element) {
     const tag = element.tagName.toLowerCase();
     const stableClasses = Array.from(element.classList).filter(
@@ -894,9 +903,12 @@ function generateLocatorCandidates(element, max = MAX_LOCATOR_SUGGESTIONS) {
     // 5 — Test ID
     if (testId) add('Test ID', formatPlaywrightLocator('getByTestId', testId));
 
-    // 6 — CSS (class / aria-label / generic css selector)
+    // 6 — CSS (aria-label / name / class / generic)
     const ariaCssSel = buildCssAriaLabelSelector(element);
     const ariaCssAdded = tryAddCssLocatorSuggestion('CSS (aria-label)', ariaCssSel, element, add);
+
+    const nameCssSel = buildCssNameAttributeSelector(element);
+    const nameCssAdded = tryAddCssLocatorSuggestion('CSS (name)', nameCssSel, element, add);
 
     const classCssSel = buildStableClassCssSelector(element);
     const classCssAdded = tryAddCssLocatorSuggestion('CSS (class)', classCssSel, element, add);
@@ -904,6 +916,7 @@ function generateLocatorCandidates(element, max = MAX_LOCATOR_SUGGESTIONS) {
     const cssSelector = getRelativeCSS(element, element.parentElement);
     const duplicatesSpecificCss =
         (ariaCssAdded && cssSelector === ariaCssSel) ||
+        (nameCssAdded && cssSelector === nameCssSel) ||
         (classCssAdded && cssSelector === classCssSel);
     if (!duplicatesSpecificCss) {
         const cssLoc = `page.locator("${escapeLocatorStr(cssSelector)}") // WARNING: fragile CSS`;
